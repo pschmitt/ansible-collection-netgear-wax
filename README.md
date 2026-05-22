@@ -12,7 +12,13 @@ API discovery and authentication flow based on the excellent work by
 
 - Python 3.9+
 - Ansible 2.15+
-- No external Python libraries required (uses stdlib `urllib` only)
+- [pywax](https://github.com/pschmitt/pywax) Python library
+
+```sh
+pip install "pywax @ git+https://github.com/pschmitt/pywax"
+# or
+pip install -r requirements.txt  # from the collection root
+```
 
 ## Tested devices
 
