@@ -15,7 +15,7 @@ API discovery and authentication flow based on the excellent work by
 - [pywax](https://github.com/pschmitt/pywax) Python library
 
 ```sh
-pip install "pywax @ git+https://github.com/pschmitt/pywax"
+pip install pywax
 # or
 pip install -r requirements.txt  # from the collection root
 ```

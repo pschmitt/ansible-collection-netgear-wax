@@ -1,1 +1,1 @@
-pywax @ git+https://github.com/pschmitt/pywax
+pywax>=0.1.0
