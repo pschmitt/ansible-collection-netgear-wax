@@ -289,11 +289,12 @@ def _main_logged_in(module, client, p):
     before = _normalise(current_cfg)
 
     if not any_change or module.check_mode:
+        after = _build_desired(current_cfg, p)[0] if any_change else before
+        after = _normalise(after)
         module.exit_json(
             changed=any_change,
             ssid_id=ssid_id,
-            before=before,
-            after=before,
+            diff={"before": before, "after": after},
         )
 
     # Build the full set payload for all bands/VAPs.
@@ -316,11 +317,11 @@ def _main_logged_in(module, client, p):
     except WaxClientError as exc:
         module.fail_json(msg=str(exc))
 
+    after = _normalise(after_cfg)
     module.exit_json(
         changed=True,
         ssid_id=ssid_id,
-        before=before,
-        after=_normalise(after_cfg),
+        diff={"before": before, "after": after},
     )
 
 

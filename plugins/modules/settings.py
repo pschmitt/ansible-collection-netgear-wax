@@ -123,7 +123,7 @@ def _main_logged_in(module, client, p):
         else:
             after["ap_name"] = current
 
-    module.exit_json(changed=changed, before=before, after=after)
+    module.exit_json(changed=changed, diff={"before": before, "after": after})
 
 
 if __name__ == "__main__":
