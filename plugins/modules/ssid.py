@@ -71,6 +71,21 @@ options:
   vlan_id:
     description: 802.1Q VLAN ID to tag client traffic with.
     type: int
+  band_steering:
+    description: Enable band steering to prefer 5 GHz for capable clients.
+    type: bool
+  client_isolation:
+    description: Prevent wireless clients from communicating with each other.
+    type: bool
+  ieee80211w:
+    description:
+      - Management Frame Protection (802.11w). C(0)=disabled, C(1)=optional,
+        C(2)=required. Required for WPA3.
+    type: int
+    choices: [0, 1, 2]
+  fast_roaming:
+    description: Enable 802.11r Fast BSS Transition (fast roaming).
+    type: bool
 notes:
   - The access point uses a self-signed TLS certificate; certificate
     verification is intentionally disabled.
@@ -166,6 +181,14 @@ def _build_desired(current_cfg, params):
         _set("encryption", ENCRYPTION_TYPES[params["encryption"]])
     if params["vlan_id"] is not None:
         _set("vlanID", params["vlan_id"])
+    if params["band_steering"] is not None:
+        _set("bandSteeringStatus", 1 if params["band_steering"] else 0)
+    if params["client_isolation"] is not None:
+        _set("clientSeparation", 1 if params["client_isolation"] else 0)
+    if params["ieee80211w"] is not None:
+        _set("ieee80211w", params["ieee80211w"])
+    if params["fast_roaming"] is not None:
+        _set("11rStatus", 1 if params["fast_roaming"] else 0)
 
     return desired, changed
 
@@ -198,6 +221,10 @@ def main():
             auth_type=dict(type="str", choices=list(AUTH_TYPES)),
             encryption=dict(type="str", choices=list(ENCRYPTION_TYPES)),
             vlan_id=dict(type="int"),
+            band_steering=dict(type="bool"),
+            client_isolation=dict(type="bool"),
+            ieee80211w=dict(type="int", choices=[0, 1, 2]),
+            fast_roaming=dict(type="bool"),
         ),
         mutually_exclusive=[["ssid_id", "name"]],
         required_one_of=[["ssid_id", "name"]],
