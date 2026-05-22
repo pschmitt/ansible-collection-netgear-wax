@@ -1,0 +1,17 @@
+namespace: pschmitt
+name: netgear_wax
+version: 0.1.0
+readme: README.md
+description: Ansible modules for managing Netgear WAX access points via their local HTTPS API
+license:
+  - GPL-3.0-or-later
+authors:
+  - Philipp Schmitt <philipp@schmitt.co>
+repository: https://github.com/pschmitt/ansible-collection-netgear-wax
+tags:
+  - netgear
+  - wax
+  - networking
+  - wifi
+  - access_point
+dependencies: {}
